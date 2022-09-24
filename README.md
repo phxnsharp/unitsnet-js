@@ -74,8 +74,6 @@ Currently, the package supports the following units:
     -   *Mole is the amount of substance containing Avagadro's Number (6.02 x 10 ^ 23) of real particles such as molecules,atoms, ions or radicals.*
 - **AmplitudeRatio**
     -   *The strength of a signal expressed in decibels (dB) relative to one volt RMS.*
-- **Angle**
-    -   *In geometry, an angle is the figure formed by two rays, called the sides of the angle, sharing a common endpoint, called the vertex of the angle.*
 - **ApparentEnergy**
     -   *A unit for expressing the integral of apparent power over time, equal to the product of 1 volt-ampere and 1 hour, or to 3600 joules.*
 - **ApparentPower**

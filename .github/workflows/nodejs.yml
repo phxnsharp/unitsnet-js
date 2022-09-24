@@ -31,7 +31,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    # if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -50,6 +50,7 @@ jobs:
       - name: Bomb Version
         id: update_version
         run: |
+          git pull
           version=$(npm --no-git-tag-version --tag-version-prefix= version patch)
           echo $version
           echo ::set-output name=version::$version
@@ -70,22 +71,22 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           commit_message: Update to version ${{ steps.update_version.outputs.version }} [skip-ci]
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.update_version.outputs.version }}
-          release_name: ${{  steps.version_info.outputs.title }}
-          body: ${{  steps.version_info.outputs.body }}
-          draft: false
-          prerelease: false
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ steps.update_version.outputs.version }}
+      #     release_name: ${{  steps.version_info.outputs.title }}
+      #     body: ${{  steps.version_info.outputs.body }}
+      #     draft: false
+      #     prerelease: false
       
-      - name: Publish package on NPM 📦
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # - name: Publish package on NPM 📦
+      #   run: npm publish
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Commit and push generated docs update
         uses: devops-infra/action-commit-push@master
