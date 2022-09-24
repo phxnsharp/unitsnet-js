@@ -88,6 +88,11 @@ jobs:
       #   env:
       #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Build & Test 🔧
+        run: |
+          yarn generate
+          yarn test
+
       - name: Commit and push generated docs update
         uses: devops-infra/action-commit-push@master
         with:
