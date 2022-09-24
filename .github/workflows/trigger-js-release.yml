@@ -1,0 +1,15 @@
+name: Trigger JS package release # Trigger JS package re-generate and publish to NPM (https://github.com/haimkastner/unitsnet-js)
+
+on: [push]
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call re-run generate & publish job 
+        env:
+          UNITISNET_JS_WORKFLOW_TOKEN: ${{ secrets.UNITISNET_JS_WORKFLOW_TOKEN }}
+        run: |
+          jobs=$(curl --location --request GET "https://api.github.com/repos/haimkastner/unitsnet-js/actions/runs" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $UNITISNET_JS_WORKFLOW_TOKEN")
+          latest_prod_job=$(echo $jobs | jq -r '.workflow_runs[] | select(.head_branch=="master") | .id' |  head -n 1)
+          echo $latest_prod_job

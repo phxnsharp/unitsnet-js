@@ -23,13 +23,13 @@ jobs:
           cd ..
           yarn install --frozen-lockfile
 
-      - name: Test Actions API
-        env:
-          UNITISNET_JS_WORKFLOW_TOKEN: ${{ secrets.UNITISNET_JS_WORKFLOW_TOKEN }}
-        run: |
-          jobs=$(curl --location --request GET "https://api.github.com/repos/haimkastner/unitsnet-js/actions/runs" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $UNITISNET_JS_WORKFLOW_TOKEN")
-          latest_prod_job=$(echo $jobs | jq -r '.workflow_runs[] | select(.head_branch=="master") | .id ' |  head -n 1)
-          echo $latest_prod_job
+      # - name: Test Actions API
+      #   env:
+      #     UNITISNET_JS_WORKFLOW_TOKEN: ${{ secrets.UNITISNET_JS_WORKFLOW_TOKEN }}
+      #   run: |
+      #     jobs=$(curl --location --request GET "https://api.github.com/repos/haimkastner/unitsnet-js/actions/runs" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $UNITISNET_JS_WORKFLOW_TOKEN")
+      #     latest_prod_job=$(echo $jobs | jq -r '.workflow_runs[] | select(.head_branch=="master") | .id' |  head -n 1)
+      #     echo $latest_prod_job
 
 
       - name: Build & Test 🔧
